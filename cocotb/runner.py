@@ -69,7 +69,7 @@ def shlex_quote(s):
 
 def shlex_join(split_command):
     """Return a shell-escaped string from *split_command*."""
-    return " ".join(shlex.quote(arg) for arg in split_command)
+    return " ".join(arg for arg in shlex.split(split_command))
 
 
 class Simulator(abc.ABC):
@@ -1003,7 +1003,7 @@ class Xcelium(Simulator):
             + ["-xmlibdirname"]
             + [f"{self.build_dir}/xrun_snapshot"]
             + ["-cds_implicit_tmpdir"]
-            + ["tmpdir"]
+            + [tmpdir]
             + ["-licqueue"]
             + verbosity_opts
             + ["-R"]
