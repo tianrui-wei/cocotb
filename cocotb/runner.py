@@ -17,6 +17,7 @@ import subprocess
 import sys
 import tempfile
 import warnings
+import shlex
 from contextlib import suppress
 from pathlib import Path
 from typing import Dict, List, Mapping, Optional, Sequence, Tuple, Type, Union
@@ -68,7 +69,7 @@ def shlex_quote(s):
 
 def shlex_join(split_command):
     """Return a shell-escaped string from *split_command*."""
-    return " ".join(shlex_quote(arg) for arg in split_command)
+    return " ".join(shlex.quote(arg) for arg in split_command)
 
 
 class Simulator(abc.ABC):
@@ -948,6 +949,7 @@ class Xcelium(Simulator):
             + verbosity_opts
             # + ["-vpicompat 1800v2005"]  # <1364v1995|1364v2001|1364v2005|1800v2005> Specify the IEEE VPI
             + ["-access +rwc"]
+            + ["-loadvpi"]
             # always start with VPI on Xcelium
             + [
                 cocotb.config.lib_name_path("vpi", "xcelium")
