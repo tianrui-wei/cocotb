@@ -17,7 +17,6 @@ import subprocess
 import sys
 import tempfile
 import warnings
-import shlex
 from contextlib import suppress
 from pathlib import Path
 from typing import Dict, List, Mapping, Optional, Sequence, Tuple, Type, Union
@@ -69,9 +68,7 @@ def shlex_quote(s):
 
 def shlex_join(split_command):
     """Return a shell-escaped string from *split_command*."""
-    print(split_command)
-    return shlex.join(split_command)
-    #return " ".join(arg for arg in split_command)
+    return " ".join(shlex_quote(arg) for arg in split_command)
 
 
 class Simulator(abc.ABC):
