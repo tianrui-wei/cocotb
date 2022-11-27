@@ -69,7 +69,9 @@ def shlex_quote(s):
 
 def shlex_join(split_command):
     """Return a shell-escaped string from *split_command*."""
-    return " ".join(arg for arg in shlex.split(split_command))
+    print(split_command)
+    return shlex.join(split_command)
+    #return " ".join(arg for arg in split_command)
 
 
 class Simulator(abc.ABC):
